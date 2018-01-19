@@ -10,6 +10,7 @@ class AdjacencyMatrix {
   constructor(edgeList) {
     this.edgeList = edgeList;
     this.matrix = [];
+    this.people = {};
   }
 
   createMatrix() {
@@ -18,18 +19,46 @@ class AdjacencyMatrix {
     }
     for (var i = 0; i < this.edgeList.length; i++) {
       let values = {
-        person1: this.edgeList[i][0].id,
-        person2: this.edgeList[i][1].id,
+        person1: {
+          id: this.edgeList[i][0].id,
+          name: this.edgeList[i][0].name
+        },
+        person2: {
+          id: this.edgeList[i][1].id,
+          name: this.edgeList[i][1].name
+        },
         weight: this.edgeList[i][2]
       };
-      this.matrix[values.person1][values.person2] = values.weight;
-      this.matrix[values.person2][values.person1] = values.weight;
+      this.matrix[values.person1.id][values.person2.id] = values.weight;
+      this.matrix[values.person2.id][values.person1.id] = values.weight;
+      this.people[values.person1.id] = values.person1.name;
+      this.people[values.person2.id] = values.person2.name;
     }
-    console.log(this.matrix);
   }
 
-  printEdgeList() {
-    console.log(this.matrix);
+  printEdgeList() {}
+
+  printMatrix() {
+    let nameSpace = '     ';
+    let firstRow = '          ';
+    for (let i = 0; i < 20; i++) {
+      firstRow += `${this.people[i]} ${nameSpace}`;
+    }
+    console.log(`${firstRow}`);
+    let count = 0;
+    let rowName = '';
+    let row = '';
+    while (count < 20) {
+      row += `${this.people[count]} ${nameSpace}`;
+      for (let i = 0; i < this.matrix[count]; i++) {
+        isNaN(this.matrix[count][i])
+          ? (row += `x ${nameSpace}`)
+          : (row += `${this.matrix[count][i]} ${nameSpace}`);
+      }
+      count++;
+      console.log(row);
+      row = '';
+    }
   }
 }
 
@@ -91,7 +120,7 @@ const EDGE_LIST = [
 
 const newEdgeList = new AdjacencyMatrix(EDGE_LIST);
 newEdgeList.createMatrix();
-newEdgeList.printEdgeList();
+newEdgeList.printMatrix();
 
 // Helper function to view the edge list
 const printEdgeList = () => {

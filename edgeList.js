@@ -3,8 +3,46 @@ class Person {
   constructor(id, name) {
     this.id = id;
     this.name = name;
+    this.matrix = [];
+
   }
 }
+
+class AdjacencyMatrix {
+  constructor(edgeList){
+    this.edgeList = edgeList;
+
+  }
+
+
+createMatrix(){
+
+
+//const personArray = new Array(x)
+
+for (var i = 0; i < this.edgeList.length; i++){
+  for (var j = 0; j < this.edgeList[i].length; j++){
+    if (j === 2) {
+      continue;
+    } else {
+
+      let nameId = this.edgeList[i][j].id
+      this.matrix[nameId] = this.edgeList[i][j][2] 
+     }
+console.log(this.matrix)
+  }
+}
+return this.matrix
+}
+
+printEdgeList(){
+   console.log(this.matrix)
+
+}
+
+}
+
+
 
 // An edge list of connections between people in the format
 // [ORIGIN_PERSON, DESTINATION_PERSON, WEIGHT]
@@ -61,6 +99,13 @@ const EDGE_LIST = [
   [new Person(19, "Boris"), new Person(12, "Garrett"), 5],
   [new Person(19, "Boris"), new Person(13, "Xin"), 7]
 ];
+
+
+
+const newEdgeList = new AdjacencyMatrix(EDGE_LIST)
+newEdgeList.createMatrix()
+newEdgeList.printEdgeList()
+
 
 // Helper function to view the edge list
 const printEdgeList = () => {

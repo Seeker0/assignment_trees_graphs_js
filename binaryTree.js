@@ -25,15 +25,10 @@ class Tree {
       : !currentNode.right
         ? (currentNode.right = new BinaryNode(null, null, value))
         : this.addValue(value, currentNode.right);
+        
   }
 
-  removeNode(node) {}
-
-  findValue(node) {}
-
-  updateValue(node) {}
-
-  updateNode(node) {}
+  
 
   printTree() {
     console.log(util.inspect(Birch, false, null));
